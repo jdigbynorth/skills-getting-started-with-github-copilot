@@ -33,6 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
           </ul>
         `;
 
+        // Add unregister form
+        const unregisterForm = `
+          <form class="unregister-form" data-activity="${name}" style="margin-top: 0.5em;">
+            <input type="email" name="unregister-email" placeholder="Your email to unregister" required style="width: 70%; padding: 0.25em;"/>
+            <button type="submit" style="padding: 0.25em 0.5em;">Unregister</button>
+          </form>
+        `;
+
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
@@ -42,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <strong>Participants:</strong>
             ${participantsList}
           </div>
+          ${unregisterForm}
         `;
 
         activitiesList.appendChild(activityCard);
@@ -51,6 +60,44 @@ document.addEventListener("DOMContentLoaded", () => {
         option.value = name;
         option.textContent = name;
         activitySelect.appendChild(option);
+      });
+
+      // Add event listeners for unregister forms
+      document.querySelectorAll(".unregister-form").forEach(form => {
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const activity = form.getAttribute("data-activity");
+          const email = form.querySelector('input[name="unregister-email"]').value;
+
+          try {
+            const response = await fetch(
+              `/activities/${encodeURIComponent(activity)}/unregister?email=${encodeURIComponent(email)}`,
+              {
+                method: "POST",
+              }
+            );
+            const result = await response.json();
+
+            if (response.ok) {
+              messageDiv.textContent = result.message;
+              messageDiv.className = "success";
+              form.reset();
+              fetchActivities(); // Refresh list
+            } else {
+              messageDiv.textContent = result.detail || "An error occurred";
+              messageDiv.className = "error";
+            }
+            messageDiv.classList.remove("hidden");
+            setTimeout(() => {
+              messageDiv.classList.add("hidden");
+            }, 5000);
+          } catch (error) {
+            messageDiv.textContent = "Failed to unregister. Please try again.";
+            messageDiv.className = "error";
+            messageDiv.classList.remove("hidden");
+            console.error("Error unregistering:", error);
+          }
+        });
       });
     } catch (error) {
       activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";

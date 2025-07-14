@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mergington High School API Documentation</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    h1, h2, h3 { color: #2c3e50; }
+    code, pre { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+    .endpoint { margin-bottom: 2em; }
+    .src-link { font-size: 0.95em; }
+    a { color: #2980b9; }
+    .method { font-weight: bold; }
+    .get { color: #27ae60; }
+    .post { color: #c0392b; }
+    .example { background: #eef; padding: 0.5em; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Mergington High School API Documentation</h1>
+  <p>
+    This API allows students to view, sign up for, and unregister from extracurricular activities at Mergington High School.
+  </p>
+  <p>
+    <strong>Source code:</strong>
+    <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/app.py" class="src-link" target="_blank">app.py</a>
+    |
+    <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/static/app.js" class="src-link" target="_blank">static/app.js</a>
+    |
+    <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/test_app.py" class="src-link" target="_blank">test_app.py</a>
+  </p>
+
+  <h2>Endpoints</h2>
+
+  <div class="endpoint">
+    <h3><span class="method get">GET</span> <code>/</code></h3>
+    <p>Redirects to the static front-end page.</p>
+    <div class="src-link">
+      Source: <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/app.py#L44" target="_blank">app.py: root()</a>
+    </div>
+    <div class="example">
+      <strong>Example:</strong><br>
+      <code>curl -i http://localhost:8000/</code>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <h3><span class="method get">GET</span> <code>/activities</code></h3>
+    <p>Returns a dictionary of all activities and their details.</p>
+    <div class="src-link">
+      Source: <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/app.py#L48" target="_blank">app.py: get_activities()</a>
+    </div>
+    <div class="example">
+      <strong>Example:</strong><br>
+      <code>curl http://localhost:8000/activities</code>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <h3><span class="method post">POST</span> <code>/activities/{activity_name}/signup?email=EMAIL</code></h3>
+    <p>Sign up a student for an activity.</p>
+    <ul>
+      <li><strong>Path parameter:</strong> <code>activity_name</code> (string)</li>
+      <li><strong>Query parameter:</strong> <code>email</code> (string)</li>
+    </ul>
+    <div class="src-link">
+      Source: <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/app.py#L53" target="_blank">app.py: signup_for_activity()</a>
+    </div>
+    <div class="example">
+      <strong>Example:</strong><br>
+      <code>curl -X POST "http://localhost:8000/activities/Chess%20Club/signup?email=alice@mergington.edu"</code>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <h3><span class="method post">POST</span> <code>/activities/{activity_name}/unregister?email=EMAIL</code></h3>
+    <p>Unregister a student from an activity.</p>
+    <ul>
+      <li><strong>Path parameter:</strong> <code>activity_name</code> (string)</li>
+      <li><strong>Query parameter:</strong> <code>email</code> (string)</li>
+    </ul>
+    <div class="src-link">
+      Source: <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/app.py#L67" target="_blank">app.py: unregister_from_activity()</a>
+    </div>
+    <div class="example">
+      <strong>Example:</strong><br>
+      <code>curl -X POST "http://localhost:8000/activities/Chess%20Club/unregister?email=alice@mergington.edu"</code>
+    </div>
+  </div>
+
+  <h2>Front-End</h2>
+  <p>
+    The front-end is served at <code>/static/index.html</code> and uses <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/static/app.js" target="_blank">static/app.js</a> to interact with the API.
+  </p>
+
+  <h2>Testing</h2>
+  <p>
+    Unit tests are provided in <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot/blob/main/src/test_app.py" target="_blank">test_app.py</a>.<br>
+    Run tests with:
+    <pre>pytest src/test_app.py</pre>
+  </p>
+
+  <h2>Repository</h2>
+  <p>
+    <a href="https://github.com/your-repo/skills-getting-started-with-github-copilot" target="_blank">View on GitHub</a>
+  </p>
+</body>
+</html>
