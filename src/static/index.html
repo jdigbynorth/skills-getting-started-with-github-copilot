@@ -46,5 +46,54 @@
     </footer>
 
     <script src="app.js"></script>
+    <script>
+      function getInitials(email) {
+        // Use first two letters before @ as initials
+        const name = email.split('@')[0];
+        return name.slice(0, 2).toUpperCase();
+      }
+
+      function renderActivities(activities) {
+        const container = document.getElementById('activities-container');
+        container.innerHTML = '';
+        Object.entries(activities).forEach(([name, activity]) => {
+          const card = document.createElement('div');
+          card.className = 'activity-card';
+
+          // ...existing code for title, description, schedule...
+
+          // Participants section
+          const participantsSection = document.createElement('div');
+          participantsSection.className = 'participants-section';
+
+          const participantsTitle = document.createElement('h5');
+          participantsTitle.textContent = 'Participants';
+          participantsSection.appendChild(participantsTitle);
+
+          const participantsList = document.createElement('ul');
+          participantsList.className = 'participants-list';
+
+          activity.participants.forEach(email => {
+            const li = document.createElement('li');
+            li.className = 'participant-item';
+
+            const avatar = document.createElement('span');
+            avatar.className = 'participant-avatar';
+            avatar.textContent = getInitials(email);
+
+            li.appendChild(avatar);
+            li.appendChild(document.createTextNode(email));
+            participantsList.appendChild(li);
+          });
+
+          participantsSection.appendChild(participantsList);
+          card.appendChild(participantsSection);
+
+          // ...existing code for signup form/button...
+
+          container.appendChild(card);
+        });
+      }
+    </script>
   </body>
 </html>

@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Create participants list HTML
         const participantsList = `
-          <ul class="participants-list" style="list-style-type: disc; margin-left: 1.5em; padding-left: 0;">
+          <ul class="participants-list">
             ${
               details.participants.length
-                ? details.participants.map(p => `<li style="display: list-item; margin-bottom: 0.25em; white-space: pre-line;">${p}</li>`).join("")
-                : `<li class="participants-none" style="display: list-item;">No participants yet.</li>`
+                ? details.participants.map(p => `<li>${p}</li>`).join("")
+                : `<li class="participants-none">No participants yet.</li>`
             }
           </ul>
         `;
@@ -101,3 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize app
   fetchActivities();
 });
+
+/* CSS */
+.participants-list {
+  list-style-type: disc;
+  margin-left: 1.5em;
+  padding-left: 0;
+}
